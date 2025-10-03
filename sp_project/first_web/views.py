@@ -9,6 +9,7 @@ from first_web.models import PwdSaveInfo as pwds
 
 
 def login(request):
+    #登录
     if request.method == "GET":
         return render(request,"login.html")
     elif request.method == "POST":
@@ -28,13 +29,14 @@ def login(request):
           return render(request,'login.html',{'tip':'用户名或密码错误'})          
 
 def register(request):
+     #注册
      if request.method == "GET":
           return render(request,'register.html')
      elif request.method == "POST":
           date = request.POST
           username = date.get('user')
           post_pwd = date.get('pwd')
-          pwds.objects.create(user = username,pwd = post_pwd)
+          pwds.objects.create(user = username,pwd = post_pwd)# 将用户名以及密码添加至数据库中
           return render(request,'register.html',{'tip':'注册成功'})
 
 
@@ -44,6 +46,8 @@ def system(request):
         #系统的正式页
         tests = mem.objects.all()
         return render(request,'system.html',{'all':tests})
+
+
 def member_add(request):
      #添加人员
      if request.method == "POST":
@@ -56,12 +60,17 @@ def member_add(request):
           return redirect('/system/')
      elif request.method == 'GET':
           return render(request,'member_add.html')
+     
+
 def member_delete(request):
      # 进行人员的删除
      if request.method == "GET":
         num_date = request.GET.get('id')
         mem.objects.filter(id = num_date).delete()
         return redirect('/system/')
+     
+
+
 def member_change(request):
      #对人员信息的修改
      if request.method == "GET":
@@ -69,7 +78,7 @@ def member_change(request):
         return render(request,'member_change.html',{'num_date':num_date,})
      elif request.method == "POST":
           date = request.POST
-          #确保各项值的有效性并将其加入字典update_date，实现可指定修改内容
+          #确保各项值的有效性并将其储存至字典update_date，实现可指定修改内容
           update_date = {}
           if date.get('name'):
               update_date['name'] = date.get('name')
@@ -77,9 +86,9 @@ def member_change(request):
               update_date['department'] = date.get('department')
           if date.get('join_time'):
               update_date['join_time'] = date.get('join_time')
-          print(update_date)
+          # print(update_date)
           num = date.get('id')
-          print(int(num))
+          # print(int(num))
           mem.objects.filter(id = int(num)).update(**update_date)#将字典中的值展开
           return redirect('/system/')
           
