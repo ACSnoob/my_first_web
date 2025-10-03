@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>添加成员</title>
+</head>
+<body>
+    <form method="POST" action="/system/member_add/">
+        {% csrf_token %}
+        <label>姓名：
+            <input type="text" name="name">
+        </label>
+        <label>部门：
+            <input type="text" name="department">
+        </label>
+        <lable>加入时间：
+            <input type="text" name="join_time">
+        </lable>
+        <button type="submit">确认添加</button>
+    </form>
+</body>
+</html>
