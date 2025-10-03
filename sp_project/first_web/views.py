@@ -36,8 +36,11 @@ def register(request):
           date = request.POST
           username = date.get('user')
           post_pwd = date.get('pwd')
-          pwds.objects.create(user = username,pwd = post_pwd)# 将用户名以及密码添加至数据库中
-          return render(request,'register.html',{'tip':'注册成功'})
+          if len(str(username)) <= 128 and post_pwd <= 128:
+               pwds.objects.create(user = username,pwd = post_pwd)# 将用户名以及密码添加至数据库中
+               return render(request,'register.html',{'tip':'注册成功'})
+          else:
+               return render(request,'register.html',{'tip':'用户名或密码过长'})
 
 
 
