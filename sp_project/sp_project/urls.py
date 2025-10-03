@@ -25,5 +25,5 @@ urlpatterns = [
     path('system/member_add/',views.member_add),
     path('system/member_delete/',views.member_delete),
     path('system/member_change/',views.member_change),
-    path('register/',views.register)
+    path('register/',views.register),
 ]

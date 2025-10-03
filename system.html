@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>管理系统</title>
+</head>
+<body>
+<style>
+    .table_style{
+        background-color:aliceblue;
+        text-align: center; 
+        width: 100%;
+        margin: auto;
+    }
+</style>
+    <h1 style="size: 100px;text-align: center;">人员管理</h1><br>
+    <br>
+    <button style="background-color: rgb(99, 231, 110);width:5%"><a href="/system/member_add/">添加</a></button>
+    <table border="1" class="table_style">
+        <thead>
+        <tr>
+            <td>姓名</td><td>部门</td><td>加入时间</td>
+        </tr>
+        </thead>
+        <tbody>
+            {% for test in all %}
+                <tr>
+                    <td>{{test.name}}</td><td>{{test.department}}</td><td>{{test.join_time}}</td>
+                    <td>
+                        <button style="background-color:rgb(85, 185, 85)"><a href="/system/member_change/?id={{test.id}}"><strong>编辑</strong></a></button><!--传递id，以便准确修改-->
+                        <button style="background-color:rgb(219, 94, 94)"><a href="/system/member_delete/?id={{test.id}}"><strong>删除</strong></a></button><!--传递id，以便准确删除-->
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
