@@ -15,9 +15,8 @@ def login(request):
           get_date = request.POST
           username = get_date.get('username')
           pwd = get_date.get('pwd')
-     #    if username == "splei" and pwd == "111":
           date = pwds.objects.all()
-          num = date.count()
+          num = date.count()#读取数据库中已注册的人数
           for n in range(1,num+1):
                date_check = pwds.objects.filter(id = n).first()#读取单行的信息
                if date_check:
