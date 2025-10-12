@@ -17,6 +17,7 @@ def login(request):
           username = get_date.get('username')
           pwd = get_date.get('pwd')
           date = pwds.objects.all()
+          print(date)
           num = date.count()#读取数据库中已注册的人数
           for n in range(1,num+1):
                date_check = pwds.objects.filter(id = n).first()#读取单行的信息
@@ -37,8 +38,12 @@ def register(request):
           username = date.get('user')
           post_pwd = date.get('pwd')
           if len(str(username)) <= 128 and len(post_pwd) <= 128:
-               pwds.objects.create(user = username,pwd = post_pwd)# 将用户名以及密码添加至数据库中
-               return render(request,'register.html',{'tip':'注册成功'})
+               for username_check in pwds.objects.filter().user:
+                    if username == username_check:#判断用户名是否重复
+                         return render(request,"register.html",{'ps':'用户名重复'})
+                    else:
+                         pwds.objects.create(user = username,pwd = post_pwd)# 将用户名以及密码添加至数据库中
+                         return render(request,'register.html',{'tip':'注册成功'})
           else:
                return render(request,'register.html',{'tip':'用户名或密码过长'})
 
